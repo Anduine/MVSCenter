@@ -5,7 +5,8 @@
 #include <QString>
 #include <vector>
 
-struct UserRequest{
+struct UserRequest
+{
     int id;
     QDate date;
     QString status;
@@ -19,16 +20,23 @@ class Requests
 {
 private:
     std::vector<UserRequest> request_list;
+
 public:
     Requests();
 
     void heapSort();
     void heapify(int heap_size, int cur_index);
 
-    void bubbleSort();
-    void selectionSort();
+    void bubbleSortDate();
+    void bubbleSortName();
+
+    void selectionSortDate();
+    void selectionSortName();
 
     void loadFromFile(QString filepath);
 };
+
+bool compareDate(const UserRequest& a, const UserRequest& b);
+bool compareName(const UserRequest& a, const UserRequest& b);
 
 #endif // REQUESTS_H
