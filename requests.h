@@ -27,6 +27,8 @@ public:
 
     void bubbleSort();
     void selectionSort();
+
+    void loadFromFile(QString filepath);
 };
 
 #endif // REQUESTS_H
