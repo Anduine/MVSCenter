@@ -4,9 +4,15 @@
 #include <QFile>
 #include <QString>
 #include <vector>
+
 using namespace std;
 
 Requests::Requests() {}
+
+void Requests::insertUser(UserRequest request)
+{
+    request_list.push_back(request);
+}
 
 void loadFromFile(QString filepath)
 {

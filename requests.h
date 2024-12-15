@@ -23,8 +23,11 @@ private:
 public:
     Requests();
 
+    void insertUser(UserRequest request);
+
     void heapSortDate();
     void heapifyDate(std::vector<UserRequest>& array, int n, int index);
+
     void heapSortName();
     void heapifyName(std::vector<UserRequest>& array, int n, int index);
 

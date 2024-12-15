@@ -1,6 +1,8 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+#include "requests.h"
+
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -17,7 +19,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButtonAddUser_clicked();
+
 private:
     Ui::MainWindow *ui;
+    Requests requests;
 };
 #endif // MAIN_WINDOW_H
