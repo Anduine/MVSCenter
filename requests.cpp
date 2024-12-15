@@ -11,6 +11,7 @@ Requests::Requests() {}
 
 void Requests::insertUser(UserRequest request)
 {
+    request.id = request_list.size();
     request_list.push_back(request);
 }
 
@@ -143,10 +144,23 @@ void Requests::heapifyDate(vector<UserRequest>& array, int n, int i) {
         heapifyDate(array, n, largest);
     }
 }
+
+
+int Requests::size()
+{
+    return request_list.size();
+}
+
+UserRequest& Requests::operator[] (const int index)
+{
+    return request_list[index];
+}
+
 bool compareDate(const UserRequest &a, const UserRequest &b)
 {
     return a.date > b.date;
 }
+
 bool compareName(const UserRequest &a, const UserRequest &b)
 {
     return a.client_name > b.client_name;

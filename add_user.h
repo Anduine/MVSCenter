@@ -15,8 +15,10 @@ class AddUser : public QWidget
 
 public:
     explicit AddUser(QWidget *parent = nullptr);
-    explicit AddUser(UserRequest *user_request);
     ~AddUser();
+
+signals:
+    void userAdded(const UserRequest& request);
 
 private slots:
     void on_pushButtonBack_clicked();

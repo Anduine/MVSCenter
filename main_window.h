@@ -21,9 +21,12 @@ public:
 
 private slots:
     void on_pushButtonAddUser_clicked();
+    void onUserAdded(const UserRequest& request);
 
 private:
     Ui::MainWindow *ui;
     Requests requests;
+    void showAllUsers();
+    void onHeaderClicked(int column);
 };
 #endif // MAIN_WINDOW_H

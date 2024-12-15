@@ -38,6 +38,10 @@ public:
     void selectionSortName();
 
     void loadFromFile(QString filepath);
+
+    int size();
+
+    UserRequest& operator[] (const int index);
 };
 
 bool compareDate(const UserRequest &a, const UserRequest &b);

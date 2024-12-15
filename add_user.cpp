@@ -10,14 +10,6 @@ AddUser::AddUser(QWidget *parent)
     ui->setupUi(this);
 }
 
-AddUser::AddUser(UserRequest *user_request)
-    : QWidget(nullptr)
-    , ui(new Ui::AddUser)
-{
-    request = user_request;
-    ui->setupUi(this);
-}
-
 AddUser::~AddUser()
 {
     delete ui;
@@ -27,13 +19,14 @@ void AddUser::on_pushButtonAccept_clicked()
 {
     request = new UserRequest();
 
-
     request->client_name = ui->lineEditPIB->text();
     request->client_passportID = ui->lineEditPassportID->text();
     request->client_phonenumber = ui->lineEditPhone->text().toInt();
     request->date = ui->dateEdit->date();
     request->status = ui->comboBoxStatus->currentText();
-    request->attempt_number = ui->spinBoxAttempt->displayIntegerBase();
+    request->attempt_number = ui->spinBoxAttempt->value();
+
+    emit userAdded(*request);
 
     close();
 }
