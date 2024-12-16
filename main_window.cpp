@@ -87,7 +87,7 @@ void MainWindow::onHeaderClicked(int column)
         requests.selectionSort(column);
     }
 
-    showAllUsers();
+    showAllUsers(true);
     qint64 work_time = timer.elapsed();
 
     ui->lineEditSortTime->setText(QString::number(work_time) + " мс");

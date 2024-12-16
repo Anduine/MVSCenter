@@ -65,7 +65,7 @@ void Requests::selectionSort(int sort_mode)
     for (int i = 0; i < n - 1; ++i) {
         int min_i = i;
         for (int j = i + 1; j < n; ++j) {
-            if (compare(request_list[j], request_list[min_i], sort_mode)) {
+            if (!compare(request_list[j], request_list[min_i], sort_mode)) {
                 min_i = j;
             }
         }
