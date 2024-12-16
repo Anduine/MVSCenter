@@ -16,12 +16,14 @@ void Requests::insertUser(UserRequest request)
     request_list.push_back(request);
 }
 
-void Requests::loadFromFile(QString filepath)
+bool Requests::loadFromFile(QString filepath)
 {
     QFile file(filepath);
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "File error: " << file.error();
-    } else {
+        return false;
+    }
+    else {
         //vector<UserRequest> request_list;
         QTextStream in(&file);
         while (!in.atEnd()) {
@@ -41,6 +43,7 @@ void Requests::loadFromFile(QString filepath)
             request_list.push_back(callerStruct);
         }
         file.close();
+        return true;
     }
 }
 

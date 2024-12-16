@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>580</height>
+    <width>938</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>770</width>
-    <height>580</height>
+    <width>900</width>
+    <height>690</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0">
+    <item row="5" column="0">
      <widget class="QLabel" name="label">
       <property name="font">
        <font>
@@ -33,7 +33,55 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="4">
+    <item row="2" column="1" colspan="2">
+     <widget class="QComboBox" name="comboBoxSortMethod">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>Пірамідальне</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Бульбашкове</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Вибором</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>    *натисніть на заголовок стовпця для сортування по відповідному критерію</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Метод сортування:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
      <widget class="QPushButton" name="pushButtonAddUser">
       <property name="minimumSize">
        <size>
@@ -57,7 +105,7 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="5" column="1">
      <widget class="QLineEdit" name="lineEditSortTime">
       <property name="maximumSize">
        <size>
@@ -75,8 +123,14 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="5">
+    <item row="3" column="0" colspan="5">
      <widget class="QTableWidget" name="tableWidget">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>520</height>
+       </size>
+      </property>
       <property name="editTriggers">
        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
       </property>
@@ -85,6 +139,9 @@
       </property>
       <attribute name="horizontalHeaderVisible">
        <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>100</number>
       </attribute>
       <attribute name="horizontalHeaderHighlightSections">
        <bool>false</bool>
@@ -168,19 +225,7 @@
       </item>
      </widget>
     </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Сервісний центр МВС</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
+    <item row="5" column="3">
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
@@ -193,6 +238,18 @@
       </property>
      </spacer>
     </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Сервісний центр МВС</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -200,7 +257,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>770</width>
+     <width>938</width>
      <height>21</height>
     </rect>
    </property>

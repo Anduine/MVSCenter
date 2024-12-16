@@ -5,6 +5,8 @@
 #include "requests.h"
 
 #include <QElapsedTimer>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->tableWidget->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::onHeaderClicked);
+    ui->tableWidget->setColumnWidth(1, 220);
+    ui->tableWidget->setColumnWidth(5, 120);
 }
 
 MainWindow::~MainWindow()
@@ -68,11 +72,22 @@ void MainWindow::onHeaderClicked(int column)
 {
     QElapsedTimer timer;
 
+    int method = ui->comboBoxSortMethod->currentIndex();
     timer.start();
+    if (method == 0)
+    {
+        requests.heapSort(column);
+    }
+    else if (method == 1)
+    {
+        requests.bubbleSort(column);
+    }
+    else if (method == 2)
+    {
+        requests.selectionSort(column);
+    }
 
-    requests.selectionSort(column);
     showAllUsers();
-
     qint64 work_time = timer.elapsed();
 
     ui->lineEditSortTime->setText(QString::number(work_time) + " мс");
@@ -101,16 +116,29 @@ void MainWindow::on_new_table_triggered()
     showAllUsers();
 }
 
-
 void MainWindow::on_add_one_triggered()
 {
     on_pushButtonAddUser_clicked();
 }
 
-
 void MainWindow::on_add_from_file_triggered()
 {
-    requests.loadFromFile("input.txt");
-    showAllUsers();
+    // Открыть диалог выбора файла
+    QString filePath = QFileDialog::getOpenFileName(this,
+                                                    "Оберіть файл для завантаження",
+                                                    "",  // Директорія
+                                                    "Text Files (*.txt);;All Files (*)"); // Фільтри файлів
+
+    if (filePath.isEmpty()) {
+        QMessageBox::information(this, "Відміна", "Файл не був обран.");
+        return;
+    }
+
+    // Загрузка данных из файла
+    if (requests.loadFromFile(filePath)) {
+        showAllUsers();
+    } else {
+        QMessageBox::warning(this, "Помилка", "Не вдалося завантажити дані з файлу.");
+    }
 }
 

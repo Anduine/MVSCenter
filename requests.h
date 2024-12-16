@@ -32,8 +32,7 @@ public:
     void bubbleSort(int sort_mode);
     void selectionSort(int sort_mode);
 
-
-    void loadFromFile(QString filepath);
+    bool loadFromFile(QString filepath);
 
     int size();
     void clear();
