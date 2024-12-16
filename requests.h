@@ -19,32 +19,28 @@ struct UserRequest
 class Requests
 {
 private:
-    std::vector<UserRequest> request_list; 
+    std::vector<UserRequest> request_list;
+
 public:
     Requests();
 
     void insertUser(UserRequest request);
 
-    void heapSortDate();
-    void heapifyDate(std::vector<UserRequest>& array, int n, int index);
+    void heapSort(int sortMode);
+    void heapify(std::vector<UserRequest> &array, int n, int index, int sortMode);
 
-    void heapSortName();
-    void heapifyName(std::vector<UserRequest>& array, int n, int index);
+    void bubbleSort(int sortMode);
+    void selectionSort(int sortMode);
 
-    void bubbleSortDate();
-    void bubbleSortName();
-
-    void selectionSortDate();
-    void selectionSortName();
 
     void loadFromFile(QString filepath);
 
     int size();
 
-    UserRequest& operator[] (const int index);
+    UserRequest &operator[](const int index);
 };
 
-bool compareDate(const UserRequest &a, const UserRequest &b);
-bool compareName(const UserRequest &a, const UserRequest &b);
+bool compare(const UserRequest &a, const UserRequest &b, int index);
+
 
 #endif // REQUESTS_H

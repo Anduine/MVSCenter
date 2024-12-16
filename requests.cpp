@@ -40,36 +40,25 @@ void loadFromFile(QString filepath)
         }
     }
 }
-void Requests::bubbleSortDate()
-{
-    int n = request_list.size();
-    for (int i = 0; i < n - 1; ++i) {
-        for (int j = 0; j < n - i - 1; ++j) {
-            if (compareDate(request_list[j], request_list[j + 1])) {
-                swap(request_list[j], request_list[j + 1]);
-            }
-        }
-    }
-}
-void Requests::bubbleSortName()
-{
-    int n = request_list.size();
-    for (int i = 0; i < n - 1; ++i) {
-        for (int j = 0; j < n - i - 1; ++j) {
-            if (compareName(request_list[j], request_list[j + 1])) {
-                swap(request_list[j], request_list[j + 1]);
-            }
-        }
-    }
-}
 
-void Requests::selectionSortDate()
+void Requests::bubbleSort(int sortMode)
+{
+    int n = request_list.size();
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (compare(request_list[j], request_list[j + 1], sortMode)) {
+                swap(request_list[j], request_list[j + 1]);
+            }
+        }
+    }
+}
+void Requests::selectionSort(int sortMode)
 {
     int n = request_list.size();
     for (int i = 0; i < n - 1; ++i) {
         int min_i = i;
         for (int j = i + 1; j < n; ++j) {
-            if (compareDate(request_list[j], request_list[min_i])) {
+            if (compare(request_list[j], request_list[min_i], sortMode)) {
                 min_i = j;
             }
         }
@@ -77,91 +66,55 @@ void Requests::selectionSortDate()
     }
 }
 
-void Requests::selectionSortName()
+void Requests::heapSort(int sortMode)
 {
     int n = request_list.size();
-    for (int i = 0; i < n - 1; ++i) {
-        int min_i = i;
-        for (int j = i + 1; j < n; ++j) {
-            if (compareName(request_list[j], request_list[min_i])) {
-                min_i = j;
-            }
-        }
-        swap(request_list[i], request_list[min_i]);
-    }
-}
-
-void Requests::heapSortName() {
-    int n = request_list.size();
 
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapifyName(request_list, n, i);
+        heapify(request_list, n, i, sortMode);
 
     for (int i = n - 1; i > 0; i--) {
         swap(request_list[0], request_list[i]);
-        heapifyName(request_list, i, 0);
+        heapify(request_list, i, 0, sortMode);
     }
 }
-
-void Requests::heapifyName(vector<UserRequest>& array, int n, int i) {
+void Requests::heapify(vector<UserRequest> &array, int n, int i, int sortMode)
+{
     int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
 
-    if (left < n && array[left].client_name > array[largest].client_name)
+    if (left < n && compare(array[left], array[largest], sortMode))
         largest = left;
-    if (right < n && array[right].client_name > array[largest].client_name)
+    if (right < n && compare(array[right], array[largest], sortMode))
         largest = right;
     if (largest != i) {
         swap(array[i], array[largest]);
-        heapifyName(array, n, largest);
+        heapify(array, n, largest, sortMode);
     }
 }
-void Requests::heapSortDate() {
-    int n = request_list.size();
-
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapifyDate(request_list, n, i);
-
-    for (int i = n - 1; i > 0; i--) {
-        swap(request_list[0], request_list[i]);
-        heapifyDate(request_list, i, 0);
-    }
-}
-
-void Requests::heapifyDate(vector<UserRequest>& array, int n, int i) {
-    int largest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
-
-
-    if (left < n && array[left].date > array[largest].date)
-        largest = left;
-    if (right < n && array[right].date > array[largest].date)
-        largest = right;
-    if (largest != i) {
-        swap(array[i], array[largest]);
-        heapifyDate(array, n, largest);
-    }
-}
-
 
 int Requests::size()
 {
     return request_list.size();
 }
 
-UserRequest& Requests::operator[] (const int index)
+UserRequest &Requests::operator[](const int index)
 {
     return request_list[index];
 }
 
-bool compareDate(const UserRequest &a, const UserRequest &b)
+bool compare(const UserRequest &a, const UserRequest &b, int index)
 {
-    return a.date > b.date;
+    switch (index) {
+        case 0: return a.id > b.id;
+        case 1: return a.date > b.date;
+        case 2: return a.status > b.status;
+        case 3: return a.client_name > b.client_name;
+        case 4: return a.client_passportID > b.client_passportID;
+        case 5: return a.client_phonenumber > b.client_phonenumber;
+        case 6: return a.attempt_number > b.attempt_number;
+        default: return false;
+    }
 }
 
-bool compareName(const UserRequest &a, const UserRequest &b)
-{
-    return a.client_name > b.client_name;
-}
