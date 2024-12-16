@@ -19,43 +19,63 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::showAllUsers()
+void MainWindow::showAllUsers(bool reverse = false)
 {
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-    for (int i = 0; i < requests.size(); i++)
+    if (reverse)
     {
-        UserRequest cur = requests[i];
+        for (int i = 0; i < requests.size(); ++i)
+        {
+            UserRequest cur = requests[i];
 
-        int rowCount = ui->tableWidget->rowCount();
-        ui->tableWidget->insertRow(rowCount);
+            int rowCount = ui->tableWidget->rowCount();
+            ui->tableWidget->insertRow(rowCount);
 
-        ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(cur.id))); // ID
-        ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(cur.client_name));
-        ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(cur.client_passportID));
-        ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
-        ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(QString::number(cur.date.year()) + "-" +
-                                                                   QString::number(cur.date.month()) + "-" + QString::number(cur.date.day())));
-        ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(cur.status));
-        ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.attempt_number)));
+            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(cur.id))); // ID
+            ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(cur.client_name));
+            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(cur.client_passportID));
+            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
+            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(QString::number(cur.date.year()) + "-" +
+                                                                       QString::number(cur.date.month()) + "-" + QString::number(cur.date.day())));
+            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(cur.status));
+            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.attempt_number)));
+        }
+    }
+    else
+    {
+        for (int i = requests.size() - 1; i >= 0; --i)
+        {
+            UserRequest cur = requests[i];
+
+            int rowCount = ui->tableWidget->rowCount();
+            ui->tableWidget->insertRow(rowCount);
+
+            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(cur.id))); // ID
+            ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(cur.client_name));
+            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(cur.client_passportID));
+            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
+            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(QString::number(cur.date.year()) + "-" +
+                                                                       QString::number(cur.date.month()) + "-" + QString::number(cur.date.day())));
+            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(cur.status));
+            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.attempt_number)));
+        }
     }
 }
 
 void MainWindow::onHeaderClicked(int column)
 {
     QElapsedTimer timer;
-    if (column == 1)
-    {
-        timer.start();
 
-        requests.selectionSortName();
-        showAllUsers();
+    timer.start();
 
-        qint64 work_time = timer.elapsed();
+    requests.selectionSort(column);
+    showAllUsers();
 
-        ui->lineEditSortTime->setText(QString::number(work_time) + " мс");
-    }
+    qint64 work_time = timer.elapsed();
+
+    ui->lineEditSortTime->setText(QString::number(work_time) + " мс");
 }
 
 void MainWindow::on_pushButtonAddUser_clicked()
@@ -69,11 +89,28 @@ void MainWindow::on_pushButtonAddUser_clicked()
 
 void MainWindow::onUserAdded(const UserRequest& request)
 {
-    // Обрабатываем данные, переданные из AddUser
-    requests.insertUser(request); // Добавляем пользователя в структуру данных
-    ui->lineEditStatus->setText("Готово");
+    // Опрацьовуємо дані, з AddUser
+    requests.insertUser(request);
 
     showAllUsers();
+}
 
+void MainWindow::on_new_table_triggered()
+{
+    requests.clear();
+    showAllUsers();
+}
+
+
+void MainWindow::on_add_one_triggered()
+{
+    on_pushButtonAddUser_clicked();
+}
+
+
+void MainWindow::on_add_from_file_triggered()
+{
+    requests.loadFromFile("input.txt");
+    showAllUsers();
 }
 

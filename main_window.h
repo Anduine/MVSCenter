@@ -23,10 +23,16 @@ private slots:
     void on_pushButtonAddUser_clicked();
     void onUserAdded(const UserRequest& request);
 
+    void on_new_table_triggered();
+
+    void on_add_one_triggered();
+
+    void on_add_from_file_triggered();
+
 private:
     Ui::MainWindow *ui;
     Requests requests;
-    void showAllUsers();
+    void showAllUsers(bool reverse);
     void onHeaderClicked(int column);
 };
 #endif // MAIN_WINDOW_H

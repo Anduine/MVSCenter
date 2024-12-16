@@ -12,7 +12,7 @@ struct UserRequest
     QString status;
     QString client_name;
     QString client_passportID;
-    int client_phonenumber;
+    qint64 client_phonenumber;
     int attempt_number;
 };
 
@@ -26,16 +26,17 @@ public:
 
     void insertUser(UserRequest request);
 
-    void heapSort(int sortMode);
-    void heapify(std::vector<UserRequest> &array, int n, int index, int sortMode);
+    void heapSort(int sort_mode);
+    void heapify(std::vector<UserRequest> &array, int n, int index, int sort_mode);
 
-    void bubbleSort(int sortMode);
-    void selectionSort(int sortMode);
+    void bubbleSort(int sort_mode);
+    void selectionSort(int sort_mode);
 
 
     void loadFromFile(QString filepath);
 
     int size();
+    void clear();
 
     UserRequest &operator[](const int index);
 };
