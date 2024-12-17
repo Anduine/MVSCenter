@@ -16,6 +16,13 @@ struct UserRequest
     int attempt_number;
 };
 
+struct UserData
+{
+    QString username;
+    QString password;
+    bool admin;
+};
+
 class Requests
 {
 private:
@@ -38,9 +45,22 @@ public:
     void clear();
 
     UserRequest &operator[](const int index);
+    bool compare(const UserRequest &a, const UserRequest &b, int index);
+
+    const std::vector<UserRequest>& getList() const;
 };
 
-bool compare(const UserRequest &a, const UserRequest &b, int index);
-
+class Authorization
+{
+private:
+    std::vector<UserData> userDatabase;
+    Requests requests;
+public:
+    Authorization();
+    std::vector<UserRequest> login(std::string username, std::string password);
+    std::vector<UserRequest> logout();
+    std::vector<UserRequest> filter(const std::vector<UserRequest>& request_list, const std::string& username);
+    bool loadFromFile(QString filepath);
+};
 
 #endif // REQUESTS_H

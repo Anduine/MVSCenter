@@ -22,8 +22,7 @@ bool Requests::loadFromFile(QString filepath)
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "File error: " << file.error();
         return false;
-    }
-    else {
+    } else {
         //vector<UserRequest> request_list;
         QTextStream in(&file);
         while (!in.atEnd()) {
@@ -111,6 +110,10 @@ void Requests::clear()
     request_list.clear();
 }
 
+const vector<UserRequest>& Requests::getList() const {
+    return request_list;
+}
+
 UserRequest &Requests::operator[](const int index)
 {
     return request_list[index];
@@ -119,14 +122,73 @@ UserRequest &Requests::operator[](const int index)
 bool compare(const UserRequest &a, const UserRequest &b, int index)
 {
     switch (index) {
-        case 0: return a.id > b.id;
-        case 1: return a.client_name > b.client_name;
-        case 2: return a.client_passportID > b.client_passportID;
-        case 3: return a.client_phonenumber > b.client_phonenumber;
-        case 4: return a.date > b.date;
-        case 5: return a.status > b.status;
-        case 6: return a.attempt_number > b.attempt_number;
-        default: return false;
+    case 0:
+        return a.id > b.id;
+    case 1:
+        return a.client_name > b.client_name;
+    case 2:
+        return a.client_passportID > b.client_passportID;
+    case 3:
+        return a.client_phonenumber > b.client_phonenumber;
+    case 4:
+        return a.date > b.date;
+    case 5:
+        return a.status > b.status;
+    case 6:
+        return a.attempt_number > b.attempt_number;
+    default:
+        return false;
     }
 }
 
+Authorization::Authorization() {}
+
+vector<UserRequest> Authorization::login(string username, string password){
+    const vector<UserRequest>& requests_list = requests.getList();
+        for (const UserData& user : userDatabase) {
+            if (user.username == username && user.password == password) {
+                if (user.admin) {
+                    return requests_list;
+                }
+
+            }
+        }
+        return filter(requests_list, username);
+}
+
+vector<UserRequest> Authorization::logout(){
+    vector<UserRequest> emptyList;
+    return emptyList;
+}
+
+bool Authorization::loadFromFile(QString filepath){
+    QFile file(filepath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "File error: " << file.error();
+        return false;
+    } else {
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString userInfo = in.readLine();
+            QStringList parts = userInfo.split("$");
+            UserData user;
+            // дані в форматі username$password$admin/user
+            user.username = parts[0];
+            user.password = parts[1];
+            user.admin = (parts[2] == "admin");
+            userDatabase.push_back(user);
+        }
+        file.close();
+        return true;
+    }
+    }
+
+vector<UserRequest> Authorization::filter(const vector<UserRequest>& request_list, const string& username) {
+    vector<UserRequest> filteredData;
+    for (const UserRequest& request : request_list) {
+        if (request.client_name == QString::fromStdString(username)) {
+            filteredData.push_back(request);
+        }
+    }
+    return filteredData;
+}
