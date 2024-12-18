@@ -55,7 +55,6 @@ bool Authorization::loadFromFile(QString filepath)
             userDatabase.push_back(user);
         }
         file.close();
-        qDebug() << "Інформація є";
         return true;
     }
 }

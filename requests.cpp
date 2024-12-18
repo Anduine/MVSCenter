@@ -25,7 +25,8 @@ bool Requests::loadFromFile(QString filepath)
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "File error: " << file.error();
         return false;
-    } else {
+    }
+    else {
         QTextStream in(&file);
         while (!in.atEnd()) {
             QString userInfo = in.readLine();
@@ -38,7 +39,7 @@ bool Requests::loadFromFile(QString filepath)
 
             UserRequest userStruct;
 
-            // дані типу id$date(27.10.2024 12:15)$status$type$client_name$client_passportID$client_phonenumber$attempt_number
+            // дані в форматі id$date(27.10.2024 12:15)$status$type$client_name$client_passportID$client_phonenumber$attempt_number
             userStruct.id = parts[0].toInt();
             userStruct.date = QDateTime::fromString(parts[1], "dd.MM.yyyy hh:mm");
             // if (!userStruct.date.isValid()) {
@@ -151,14 +152,16 @@ bool Requests::compare(const UserRequest &a, const UserRequest &b, int index)
     case 1:
         return a.client_name > b.client_name;
     case 2:
-        return a.client_passportID > b.client_passportID;
-    case 3:
-        return a.client_phonenumber > b.client_phonenumber;
-    case 4:
-        return a.date > b.date;
-    case 5:
         return a.status > b.status;
+    case 3:
+        return a.ticket_type > b.ticket_type;
+    case 4:
+        return a.client_passportID > b.client_passportID;
+    case 5:
+        return a.client_phonenumber > b.client_phonenumber;
     case 6:
+        return a.date > b.date;
+    case 7:
         return a.attempt_number > b.attempt_number;
     default:
         return false;

@@ -13,8 +13,27 @@ UserWindow::UserWindow(QString _username, QWidget *parent)
     ui->labelUserName->setText(username);
     userTickets = requests.getInfoUser(username);
 
-    ui->lineEditPassport->setText(userTickets[0].client_passportID);
-    ui->lineEditPhonenumber->setText(QString::number(userTickets[0].client_phonenumber));
+    bool isContain{false};
+
+    for (auto &user : userTickets)
+    {
+        if (username == user.client_name)
+        {
+            isContain = true;
+            break;
+        }
+    }
+
+    if (isContain)
+    {
+        ui->lineEditPassport->setText(userTickets[0].client_passportID);
+        ui->lineEditPhonenumber->setText(QString::number(userTickets[0].client_phonenumber));
+    }
+    else
+    {
+        ui->lineEditPassport->setText("Немає інформації");
+        ui->lineEditPhonenumber->setText("Немає інформації");
+    }
 
     ui->tableWidget->setColumnWidth(2, 160);
 
