@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QString _username, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -31,6 +31,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QString username;
+
     Requests requests;
     void showAllUsers(bool reverse);
     void onHeaderClicked(int column);

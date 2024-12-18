@@ -33,60 +33,6 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1" colspan="2">
-     <widget class="QComboBox" name="comboBoxSortMethod">
-      <property name="minimumSize">
-       <size>
-        <width>140</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <item>
-       <property name="text">
-        <string>Пірамідальне</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Бульбашкове</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Вибором</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLabel" name="label_4">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>    *натисніть на заголовок стовпця для сортування по відповідному критерію</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Метод сортування:</string>
-      </property>
-     </widget>
-    </item>
     <item row="5" column="4">
      <widget class="QPushButton" name="pushButtonAddUser">
       <property name="minimumSize">
@@ -111,21 +57,15 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="lineEditSortTime">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>30</height>
-       </size>
-      </property>
+    <item row="2" column="3">
+     <widget class="QLabel" name="label_4">
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
-      <property name="readOnly">
-       <bool>true</bool>
+      <property name="text">
+       <string>    *натисніть на заголовок стовпця для сортування по відповідному критерію</string>
       </property>
      </widget>
     </item>
@@ -171,6 +111,16 @@
       </column>
       <column>
        <property name="text">
+        <string>Статус звернення</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Тип звернення</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Паспорт</string>
        </property>
       </column>
@@ -181,12 +131,7 @@
       </column>
       <column>
        <property name="text">
-        <string>Дата звернення</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Статус звернення</string>
+        <string>Дата талону</string>
        </property>
       </column>
       <column>
@@ -206,32 +151,115 @@
       </item>
       <item row="0" column="2">
        <property name="text">
-        <string>000125451</string>
+        <string>Прийнято</string>
        </property>
       </item>
       <item row="0" column="3">
        <property name="text">
-        <string>380682146001</string>
+        <string>Теоретичний іспит</string>
        </property>
       </item>
       <item row="0" column="4">
        <property name="text">
-        <string>2024-11-30</string>
+        <string>000125451</string>
        </property>
       </item>
       <item row="0" column="5">
        <property name="text">
-        <string>Прийнято</string>
+        <string>380682146001</string>
        </property>
       </item>
       <item row="0" column="6">
+       <property name="text">
+        <string>12:00 12.12.2024</string>
+       </property>
+      </item>
+      <item row="0" column="7">
        <property name="text">
         <string>2</string>
        </property>
       </item>
      </widget>
     </item>
-    <item row="5" column="3">
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_2">
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Сервісний центр МВС</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="2">
+     <widget class="QComboBox" name="comboBoxSortMethod">
+      <property name="minimumSize">
+       <size>
+        <width>140</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>Пірамідальне</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Бульбашкове</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Вибором</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Метод сортування:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="lineEditSortTime">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2" colspan="2">
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Orientation::Horizontal</enum>
@@ -243,18 +271,6 @@
        </size>
       </property>
      </spacer>
-    </item>
-    <item row="1" column="3">
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Сервісний центр МВС</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>

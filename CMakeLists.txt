@@ -28,6 +28,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         requests.h requests.cpp
         add_user.h add_user.cpp add_user.ui
+        authorization.h authorization.cpp
+        user_window.h user_window.cpp user_window.ui
+        auth_window.h auth_window.cpp auth_window.ui
 
     )
 # Define target properties for Android with Qt 6 as:

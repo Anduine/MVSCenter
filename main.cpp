@@ -1,4 +1,6 @@
+#include "auth_window.h"
 #include "main_window.h"
+#include "user_window.h"
 
 #include <QApplication>
 #include <QLocale>
@@ -17,8 +19,13 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    MainWindow w;
-    w.show();
+
+    MainWindow *main_window;
+    // w.show();
+    UserWindow *user_window;
+
+    AuthWindow auth_window(main_window, user_window);
+    auth_window.show();
+
     return a.exec();
 }
-// test commit

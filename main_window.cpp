@@ -1,5 +1,6 @@
 #include "main_window.h"
 #include "./ui_main_window.h"
+
 #include "add_user.h"
 
 #include "requests.h"
@@ -8,13 +9,17 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QString _username, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , username(_username)
 {
     ui->setupUi(this);
     connect(ui->tableWidget->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::onHeaderClicked);
+    ui->tableWidget->setColumnWidth(0, 40);
     ui->tableWidget->setColumnWidth(1, 220);
+    ui->tableWidget->setColumnWidth(2, 110);
+    ui->tableWidget->setColumnWidth(3, 130);
     ui->tableWidget->setColumnWidth(5, 120);
 }
 
@@ -37,14 +42,15 @@ void MainWindow::showAllUsers(bool reverse = false)
             int rowCount = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(rowCount);
 
-            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(cur.id))); // ID
+            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(cur.id)));
             ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(cur.client_name));
-            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(cur.client_passportID));
-            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
-            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(QString::number(cur.date.year()) + "-" +
-                                                                       QString::number(cur.date.month()) + "-" + QString::number(cur.date.day())));
-            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(cur.status));
-            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.attempt_number)));
+            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(cur.status));
+            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(cur.ticket_type));
+            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(cur.client_passportID));
+            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
+            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.date.time().hour()) + ":" + QString::number(cur.date.time().minute()) +
+                                                                       " " + QString::number(cur.date.date().day()) + "." + QString::number(cur.date.date().month()) + "." + QString::number(cur.date.date().year())));
+            ui->tableWidget->setItem(rowCount, 7, new QTableWidgetItem(QString::number(cur.attempt_number)));
         }
     }
     else
@@ -56,14 +62,15 @@ void MainWindow::showAllUsers(bool reverse = false)
             int rowCount = ui->tableWidget->rowCount();
             ui->tableWidget->insertRow(rowCount);
 
-            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(cur.id))); // ID
+            ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(cur.id)));
             ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(cur.client_name));
-            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(cur.client_passportID));
-            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
-            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(QString::number(cur.date.year()) + "-" +
-                                                                       QString::number(cur.date.month()) + "-" + QString::number(cur.date.day())));
-            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(cur.status));
-            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.attempt_number)));
+            ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(cur.status));
+            ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(cur.ticket_type));
+            ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(cur.client_passportID));
+            ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
+            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.date.time().hour()) + ":" + QString::number(cur.date.time().minute()) +
+                                                                       " " + QString::number(cur.date.date().day()) + "." + QString::number(cur.date.date().month()) + "." + QString::number(cur.date.date().year())));
+            ui->tableWidget->setItem(rowCount, 7, new QTableWidgetItem(QString::number(cur.attempt_number)));
         }
     }
 }

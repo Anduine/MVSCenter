@@ -6,9 +6,12 @@
 
 #include <vector>
 
-using namespace std;
-
 Requests::Requests() {}
+
+Requests::Requests(QString filepath)
+{
+    loadFromFile(filepath);
+}
 
 void Requests::insertUser(UserRequest request)
 {
@@ -23,23 +26,33 @@ bool Requests::loadFromFile(QString filepath)
         qDebug() << "File error: " << file.error();
         return false;
     } else {
-        //vector<UserRequest> request_list;
         QTextStream in(&file);
         while (!in.atEnd()) {
-            QString callerInfo = in.readLine();
-            QStringList parts = callerInfo.split("$");
-            UserRequest callerStruct;
+            QString userInfo = in.readLine();
+            QStringList parts = userInfo.split("$");
 
-            // дані в форматі id$date$status$client_name$client_passportID$client_phonenumber$attempt_number ???
-            callerStruct.id = parts[0].toInt();
-            callerStruct.date = QDate::fromString(parts[1], "yyyy-MM-dd");
-            callerStruct.status = parts[2];
-            callerStruct.client_name = parts[3];
-            callerStruct.client_passportID = parts[4];
-            callerStruct.client_phonenumber = parts[5].toLongLong();
-            callerStruct.attempt_number = parts[6].toInt();
+            if (parts.size() < 8) {
+                qDebug() << "Invalid line format: " << userInfo;
+                //continue;
+            }
 
-            request_list.push_back(callerStruct);
+            UserRequest userStruct;
+
+            // дані типу id$date(27.10.2024 12:15)$status$type$client_name$client_passportID$client_phonenumber$attempt_number
+            userStruct.id = parts[0].toInt();
+            userStruct.date = QDateTime::fromString(parts[1], "dd.MM.yyyy hh:mm");
+            // if (!userStruct.date.isValid()) {
+            //     qDebug() << "Invalid date format: " << parts[1];
+            //     continue;
+            // }
+            userStruct.status = parts[2];
+            userStruct.ticket_type = parts[3];
+            userStruct.client_name = parts[4];
+            userStruct.client_passportID = parts[5];
+            userStruct.client_phonenumber = parts[6].toLongLong();
+            userStruct.attempt_number = parts[7].toInt();
+
+            request_list.push_back(userStruct);
         }
         file.close();
         return true;
@@ -52,7 +65,7 @@ void Requests::bubbleSort(int sort_mode)
     for (int i = 0; i < n - 1; ++i) {
         for (int j = 0; j < n - i - 1; ++j) {
             if (compare(request_list[j], request_list[j + 1], sort_mode)) {
-                swap(request_list[j], request_list[j + 1]);
+                std::swap(request_list[j], request_list[j + 1]);
             }
         }
     }
@@ -68,7 +81,7 @@ void Requests::selectionSort(int sort_mode)
                 min_i = j;
             }
         }
-        swap(request_list[i], request_list[min_i]);
+        std::swap(request_list[i], request_list[min_i]);
     }
 }
 
@@ -80,11 +93,11 @@ void Requests::heapSort(int sort_mode)
         heapify(request_list, n, i, sort_mode);
 
     for (int i = n - 1; i > 0; i--) {
-        swap(request_list[0], request_list[i]);
+        std::swap(request_list[0], request_list[i]);
         heapify(request_list, i, 0, sort_mode);
     }
 }
-void Requests::heapify(vector<UserRequest> &array, int n, int i, int sort_mode)
+void Requests::heapify(std::vector<UserRequest> &array, int n, int i, int sort_mode)
 {
     int largest = i;
     int left = 2 * i + 1;
@@ -95,7 +108,7 @@ void Requests::heapify(vector<UserRequest> &array, int n, int i, int sort_mode)
     if (right < n && compare(array[right], array[largest], sort_mode))
         largest = right;
     if (largest != i) {
-        swap(array[i], array[largest]);
+        std::swap(array[i], array[largest]);
         heapify(array, n, largest, sort_mode);
     }
 }
@@ -110,8 +123,19 @@ void Requests::clear()
     request_list.clear();
 }
 
-const vector<UserRequest>& Requests::getList() const {
+const std::vector<UserRequest>& Requests::getList() const {
     return request_list;
+}
+
+const std::vector<UserRequest> Requests::getInfoUser(const QString& username) const {
+    std::vector<UserRequest> filteredData;
+    for (const UserRequest& request : request_list) {
+        if (request.client_name == username) {
+            filteredData.push_back(request);
+        }
+    }
+
+    return filteredData;
 }
 
 UserRequest &Requests::operator[](const int index)
@@ -119,7 +143,7 @@ UserRequest &Requests::operator[](const int index)
     return request_list[index];
 }
 
-bool compare(const UserRequest &a, const UserRequest &b, int index)
+bool Requests::compare(const UserRequest &a, const UserRequest &b, int index)
 {
     switch (index) {
     case 0:
@@ -139,56 +163,4 @@ bool compare(const UserRequest &a, const UserRequest &b, int index)
     default:
         return false;
     }
-}
-
-Authorization::Authorization() {}
-
-vector<UserRequest> Authorization::login(string username, string password){
-    const vector<UserRequest>& requests_list = requests.getList();
-        for (const UserData& user : userDatabase) {
-            if (user.username == username && user.password == password) {
-                if (user.admin) {
-                    return requests_list;
-                }
-
-            }
-        }
-        return filter(requests_list, username);
-}
-
-vector<UserRequest> Authorization::logout(){
-    vector<UserRequest> emptyList;
-    return emptyList;
-}
-
-bool Authorization::loadFromFile(QString filepath){
-    QFile file(filepath);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "File error: " << file.error();
-        return false;
-    } else {
-        QTextStream in(&file);
-        while (!in.atEnd()) {
-            QString userInfo = in.readLine();
-            QStringList parts = userInfo.split("$");
-            UserData user;
-            // дані в форматі username$password$admin/user
-            user.username = parts[0];
-            user.password = parts[1];
-            user.admin = (parts[2] == "admin");
-            userDatabase.push_back(user);
-        }
-        file.close();
-        return true;
-    }
-    }
-
-vector<UserRequest> Authorization::filter(const vector<UserRequest>& request_list, const string& username) {
-    vector<UserRequest> filteredData;
-    for (const UserRequest& request : request_list) {
-        if (request.client_name == QString::fromStdString(username)) {
-            filteredData.push_back(request);
-        }
-    }
-    return filteredData;
 }
