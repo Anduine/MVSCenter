@@ -167,6 +167,24 @@
     <string>Сервісний центр МВС</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButtonGetTicket">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>370</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Отримати послугу</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

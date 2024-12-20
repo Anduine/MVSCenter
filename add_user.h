@@ -14,7 +14,8 @@ class AddUser : public QWidget
     Q_OBJECT
 
 public:
-    explicit AddUser(QWidget *parent = nullptr);
+    explicit AddUser(Requests *_requests, QWidget *parent = nullptr);
+    explicit AddUser(Requests *_requests, bool _is_user, QString name, qint64 phonenumber, QString passportID, QWidget *parent = nullptr);
     ~AddUser();
 
 signals:
@@ -25,9 +26,15 @@ private slots:
 
     void on_pushButtonAccept_clicked();
 
+    void on_pushButtonTimeMenu_clicked();
+
 private:
     Ui::AddUser *ui;
     UserRequest *request;
+
+    Requests *requests;
+
+    bool is_user;
 };
 
 #endif // ADD_USER_H

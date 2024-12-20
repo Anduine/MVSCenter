@@ -17,12 +17,16 @@ public:
     explicit UserWindow(QString _username, QWidget *parent = nullptr);
     ~UserWindow();
 
+private slots:
+    void on_pushButtonGetTicket_clicked();
+    void onUserAdded(const UserRequest& request);
+
 private:
     Ui::UserWindow *ui;
     QString username;
 
     Requests requests;
-    std::vector<UserRequest> userTickets;
+    std::vector<UserRequest> user_tickets;
 
     void showAllTickets(bool reverse = false);
 };

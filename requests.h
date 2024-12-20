@@ -3,6 +3,7 @@
 
 #include <QDate>
 #include <QString>
+#include <QSet>
 
 #include <vector>
 
@@ -45,6 +46,7 @@ public:
 
     const std::vector<UserRequest>& getList() const;
     const std::vector<UserRequest> getInfoUser(const QString& username) const;
+    QSet<QTime> getOccupiedTimes(const QDate& date) const;
 };
 
 #endif // REQUESTS_H

@@ -14,6 +14,7 @@ AuthWindow::AuthWindow(MainWindow *_main_window, UserWindow *_user_window, QWidg
     , user_window(_user_window)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Авторизація в системі МВС");
 }
 
 AuthWindow::~AuthWindow()

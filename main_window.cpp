@@ -15,7 +15,10 @@ MainWindow::MainWindow(QString _username, QWidget *parent)
     , username(_username)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Менеджер центру МВС");
+
     connect(ui->tableWidget->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::onHeaderClicked);
+
     ui->tableWidget->setColumnWidth(0, 40);
     ui->tableWidget->setColumnWidth(1, 220);
     ui->tableWidget->setColumnWidth(2, 110);
@@ -48,8 +51,10 @@ void MainWindow::showAllUsers(bool reverse = false)
             ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(cur.ticket_type));
             ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(cur.client_passportID));
             ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
-            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.date.time().hour()) + ":" + QString::number(cur.date.time().minute()) +
-                                                                       " " + QString::number(cur.date.date().day()) + "." + QString::number(cur.date.date().month()) + "." + QString::number(cur.date.date().year())));
+            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(
+                                                      cur.date.time().toString("hh:mm") + " " +
+                                                      cur.date.date().toString("dd.MM.yyyy")
+                                                      ));
             ui->tableWidget->setItem(rowCount, 7, new QTableWidgetItem(QString::number(cur.attempt_number)));
         }
     }
@@ -68,8 +73,10 @@ void MainWindow::showAllUsers(bool reverse = false)
             ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(cur.ticket_type));
             ui->tableWidget->setItem(rowCount, 4, new QTableWidgetItem(cur.client_passportID));
             ui->tableWidget->setItem(rowCount, 5, new QTableWidgetItem(QString::number(cur.client_phonenumber)));
-            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(QString::number(cur.date.time().hour()) + ":" + QString::number(cur.date.time().minute()) +
-                                                                       " " + QString::number(cur.date.date().day()) + "." + QString::number(cur.date.date().month()) + "." + QString::number(cur.date.date().year())));
+            ui->tableWidget->setItem(rowCount, 6, new QTableWidgetItem(
+                                                      cur.date.time().toString("hh:mm") + " " +
+                                                      cur.date.date().toString("dd.MM.yyyy")
+                                                      ));
             ui->tableWidget->setItem(rowCount, 7, new QTableWidgetItem(QString::number(cur.attempt_number)));
         }
     }
@@ -102,7 +109,7 @@ void MainWindow::onHeaderClicked(int column)
 
 void MainWindow::on_pushButtonAddUser_clicked()
 {
-    AddUser* add_user_form = new AddUser();
+    AddUser* add_user_form = new AddUser(&requests);
     add_user_form->setAttribute(Qt::WA_DeleteOnClose);
     add_user_form->show();
 

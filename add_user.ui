@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>370</height>
+    <width>450</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>550</width>
-    <height>370</height>
+    <width>450</width>
+    <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>550</width>
-    <height>370</height>
+    <width>450</width>
+    <height>400</height>
    </size>
   </property>
   <property name="font">
@@ -33,9 +33,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>10</y>
-     <width>191</width>
+     <x>120</x>
+     <y>0</y>
+     <width>221</width>
      <height>41</height>
     </rect>
    </property>
@@ -45,19 +45,25 @@
     </font>
    </property>
    <property name="text">
-    <string>Новий користувач</string>
+    <string>Зареєструвати послугу</string>
    </property>
   </widget>
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>60</y>
+     <y>50</y>
      <width>411</width>
-     <height>221</height>
+     <height>269</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
+    <property name="horizontalSpacing">
+     <number>10</number>
+    </property>
+    <property name="verticalSpacing">
+     <number>10</number>
+    </property>
     <item row="0" column="0">
      <widget class="QLabel" name="label_2">
       <property name="font">
@@ -136,6 +142,41 @@
       </property>
      </widget>
     </item>
+    <item row="3" column="1">
+     <layout class="QFormLayout" name="formLayout_2">
+      <property name="horizontalSpacing">
+       <number>40</number>
+      </property>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushButtonTimeMenu">
+        <property name="text">
+         <string>Доступний час</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QDateEdit" name="dateEdit">
+        <property name="dateTime">
+         <datetime>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>2024</year>
+          <month>12</month>
+          <day>1</day>
+         </datetime>
+        </property>
+        <property name="time">
+         <time>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+         </time>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="4" column="0">
      <widget class="QLabel" name="label_6">
       <property name="font">
@@ -145,30 +186,6 @@
       </property>
       <property name="text">
        <string>Статус</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_7">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Номер спроби</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QSpinBox" name="spinBoxAttempt">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="minimum">
-       <number>1</number>
       </property>
      </widget>
     </item>
@@ -196,17 +213,68 @@
       </item>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QDateTimeEdit" name="dateTimeEdit">
-      <property name="dateTime">
-       <datetime>
-        <hour>12</hour>
-        <minute>0</minute>
-        <second>0</second>
-        <year>2024</year>
-        <month>12</month>
-        <day>1</day>
-       </datetime>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Тип послуги</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QComboBox" name="comboBoxType">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>Оформлення авто</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Теоретичний іспит</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Практичний іспит</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Медична довідка</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Номер спроби</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QSpinBox" name="spinBoxAttempt">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="minimum">
+       <number>1</number>
       </property>
      </widget>
     </item>
@@ -215,8 +283,8 @@
   <widget class="QPushButton" name="pushButtonAccept">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>320</y>
+     <x>240</x>
+     <y>350</y>
      <width>81</width>
      <height>31</height>
     </rect>
@@ -233,8 +301,8 @@
   <widget class="QPushButton" name="pushButtonBack">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>320</y>
+     <x>350</x>
+     <y>350</y>
      <width>81</width>
      <height>31</height>
     </rect>

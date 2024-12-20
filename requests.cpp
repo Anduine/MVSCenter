@@ -139,6 +139,17 @@ const std::vector<UserRequest> Requests::getInfoUser(const QString& username) co
     return filteredData;
 }
 
+QSet<QTime> Requests::getOccupiedTimes(const QDate &date) const
+{
+    QSet<QTime> occupiedTimes;
+    for (const auto& request : request_list) {
+        if (request.date.date() == date) {
+            occupiedTimes.insert(request.date.time());
+        }
+    }
+    return occupiedTimes;
+}
+
 UserRequest &Requests::operator[](const int index)
 {
     return request_list[index];
@@ -167,3 +178,5 @@ bool Requests::compare(const UserRequest &a, const UserRequest &b, int index)
         return false;
     }
 }
+
+
