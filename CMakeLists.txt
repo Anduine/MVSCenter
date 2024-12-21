@@ -27,11 +27,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         requests.h requests.cpp
-        add_user.h add_user.cpp add_user.ui
+        add_user_window.h add_user_window.cpp add_user_window.ui
         authorization.h authorization.cpp
         user_window.h user_window.cpp user_window.ui
         auth_window.h auth_window.cpp auth_window.ui
         time_menu.h time_menu.cpp time_menu.ui
+        edit_user_window.h edit_user_window.cpp edit_user_window.ui
 
     )
 # Define target properties for Android with Qt 6 as:

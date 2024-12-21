@@ -1,7 +1,7 @@
 #include "user_window.h"
 #include "ui_user_window.h"
 
-#include "add_user.h"
+#include "add_user_window.h"
 
 #include <vector>
 

@@ -124,7 +124,7 @@ void Requests::clear()
     request_list.clear();
 }
 
-const std::vector<UserRequest>& Requests::getList() const {
+std::vector<UserRequest>& Requests::getList(){
     return request_list;
 }
 

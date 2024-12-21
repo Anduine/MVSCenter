@@ -1,5 +1,5 @@
-#ifndef ADD_USER_H
-#define ADD_USER_H
+#ifndef ADD_USER_WINDOW_H
+#define ADD_USER_WINDOW_H
 
 #include "requests.h"
 
@@ -37,4 +37,4 @@ private:
     bool is_user;
 };
 
-#endif // ADD_USER_H
+#endif // ADD_USER_WINDOW_H

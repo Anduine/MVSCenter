@@ -1,10 +1,9 @@
-#include "add_user.h"
-#include "ui_add_user.h"
+#include "add_user_window.h"
+#include "ui_add_user_window.h"
 
 #include "requests.h"
 #include "time_menu.h"
 
-#include <QMenu>
 #include <QMessageBox>
 
 AddUser::AddUser(Requests *_requests, QWidget *parent)
@@ -69,6 +68,7 @@ void AddUser::on_pushButtonAccept_clicked()
     request->ticket_type = ui->comboBoxType->currentText();
     request->status = ui->comboBoxStatus->currentText();
     request->attempt_number = ui->spinBoxAttempt->value();
+    request->id = requests->size()+1;
 
     emit userAdded(*request);
 

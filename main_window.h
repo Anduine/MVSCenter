@@ -23,11 +23,16 @@ private slots:
     void on_pushButtonAddUser_clicked();
     void onUserAdded(const UserRequest& request);
 
+    void on_tableWidget_cellDoubleClicked(int row, int column);
+    void onUserEdited(const UserRequest &updated_user);
+
     void on_new_table_triggered();
 
     void on_add_one_triggered();
 
     void on_add_from_file_triggered();
+
+
 
 private:
     Ui::MainWindow *ui;

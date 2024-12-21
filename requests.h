@@ -44,7 +44,7 @@ public:
     UserRequest &operator[](const int index);
     bool compare(const UserRequest &a, const UserRequest &b, int index);
 
-    const std::vector<UserRequest>& getList() const;
+    std::vector<UserRequest> &getList();
     const std::vector<UserRequest> getInfoUser(const QString& username) const;
     QSet<QTime> getOccupiedTimes(const QDate& date) const;
 };
