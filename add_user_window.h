@@ -30,8 +30,8 @@ private slots:
 
 private:
     Ui::AddUser *ui;
-    UserRequest *request;
 
+    UserRequest *user_request;
     Requests *requests;
 
     bool is_user;

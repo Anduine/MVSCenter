@@ -68,7 +68,7 @@ void EditUserWindow::on_pushButtonTimeMenu_clicked()
     });
 
     popup_menu->move(ui->pushButtonTimeMenu->mapToGlobal(QPoint(-50, ui->pushButtonTimeMenu->height())));
-    popup_menu->setAvailableTimes(occupiedTimes, selected_date);
+    popup_menu->setAvailableTimes(occupiedTimes);
     popup_menu->show();
 }
 

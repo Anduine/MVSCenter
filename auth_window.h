@@ -23,10 +23,11 @@ private slots:
     void on_pushButtonLogin_clicked();
 
 private:
-    Ui::AuthWindow *ui;
-    MainWindow *main_window;
-    UserWindow *user_window;
-    Authorization auth;
+    Ui::AuthWindow *ui; // delete у деструкторі
+    MainWindow *main_window; // delete у main.cpp
+    UserWindow *user_window; // delete у main.cpp
+
+    Authorization *auth; // delete у деструкторі
 };
 
 #endif // AUTH_WINDOW_H

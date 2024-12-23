@@ -21,11 +21,16 @@ int main(int argc, char *argv[])
     }
 
     MainWindow *main_window;
-    // w.show();
     UserWindow *user_window;
 
-    AuthWindow auth_window(main_window, user_window);
-    auth_window.show();
+    AuthWindow *auth_window = new AuthWindow(main_window, user_window);
+    auth_window->show();
 
-    return a.exec();
+    int result = a.exec();
+
+    delete auth_window;
+    delete main_window;
+    delete user_window;
+
+    return result;
 }

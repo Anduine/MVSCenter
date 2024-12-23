@@ -13,13 +13,18 @@ Requests::Requests(QString filepath)
     loadFromFile(filepath);
 }
 
+Requests::~Requests()
+{
+    request_list.clear();
+}
+
 void Requests::insertUser(UserRequest request)
 {
     request.id = request_list.size();
     request_list.push_back(request);
 }
 
-bool Requests::loadFromFile(QString filepath)
+bool Requests::loadFromFile(QString &filepath)
 {
     QFile file(filepath);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -91,26 +96,26 @@ void Requests::heapSort(int sort_mode)
     int n = request_list.size();
 
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(request_list, n, i, sort_mode);
+        heapify(n, i, sort_mode);
 
     for (int i = n - 1; i > 0; i--) {
         std::swap(request_list[0], request_list[i]);
-        heapify(request_list, i, 0, sort_mode);
+        heapify(i, 0, sort_mode);
     }
 }
-void Requests::heapify(std::vector<UserRequest> &array, int n, int i, int sort_mode)
+void Requests::heapify(int n, int i, int sort_mode)
 {
     int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
 
-    if (left < n && compare(array[left], array[largest], sort_mode))
+    if (left < n && compare(request_list[left], request_list[largest], sort_mode))
         largest = left;
-    if (right < n && compare(array[right], array[largest], sort_mode))
+    if (right < n && compare(request_list[right], request_list[largest], sort_mode))
         largest = right;
     if (largest != i) {
-        std::swap(array[i], array[largest]);
-        heapify(array, n, largest, sort_mode);
+        std::swap(request_list[i], request_list[largest]);
+        heapify(n, largest, sort_mode);
     }
 }
 

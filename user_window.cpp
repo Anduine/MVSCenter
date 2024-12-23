@@ -47,6 +47,7 @@ UserWindow::UserWindow(QString _username, QWidget *parent)
 UserWindow::~UserWindow()
 {
     delete ui;
+    user_tickets.clear();
 }
 
 void UserWindow::showAllTickets(bool reverse)
@@ -86,7 +87,7 @@ void UserWindow::showAllTickets(bool reverse)
     }
 }
 
-void UserWindow::on_pushButtonGetTicket_clicked()
+void UserWindow::on_pushButtonAddTicket_clicked()
 { // (Requests *_requests, bool _is_user, QString name, qint64 phonenumber, QString passportID, QWidget *parent)
     AddUser* add_user_form = new AddUser(&requests, true, ui->labelUserName->text(), ui->lineEditPhonenumber->text().toLongLong(), ui->lineEditPassport->text());
     add_user_form->setAttribute(Qt::WA_DeleteOnClose);

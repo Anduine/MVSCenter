@@ -10,10 +10,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-MainWindow::MainWindow(QString _username, QWidget *parent)
+MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , username(_username)
 {
     ui->setupUi(this);
     this->setWindowTitle("Менеджер центру МВС");

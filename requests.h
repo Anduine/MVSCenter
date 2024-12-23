@@ -27,16 +27,17 @@ private:
 public:
     Requests();
     Requests(QString filepath);
+    ~Requests();
 
     void insertUser(UserRequest request);
 
     void heapSort(int sort_mode);
-    void heapify(std::vector<UserRequest> &array, int n, int index, int sort_mode);
+    void heapify(int n, int index, int sort_mode);
 
     void bubbleSort(int sort_mode);
     void selectionSort(int sort_mode);
 
-    bool loadFromFile(QString filepath);
+    bool loadFromFile(QString &filepath);
 
     int size();
     void clear();

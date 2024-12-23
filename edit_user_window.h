@@ -28,12 +28,10 @@ private slots:
     void on_pushButtonBack_clicked();
 
 private:
-    Ui::EditUserWindow *ui;
-    UserRequest *user_request;
+    Ui::EditUserWindow *ui; // delete у деструкторі
+    UserRequest *user_request; // delete не треба
 
-    Requests *requests;
-
-    void editConfirm();
+    Requests *requests; // delete не треба
 };
 
 #endif // EDIT_USER_WINDOW_H

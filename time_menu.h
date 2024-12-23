@@ -17,15 +17,14 @@ public:
     explicit TimeMenu(QWidget *parent = nullptr);
     ~TimeMenu();
 
-    void setAvailableTimes(const QSet<QTime>& occupiedTimes, const QDate& date);
+    void setAvailableTimes(const QSet<QTime> &occupiedTimes);
 
 signals:
-    void timeSelected(const QTime& time);
+    void timeSelected(const QTime &time);
 
 private:
-    Ui::TimeMenu *ui;
-    QDate current_date;
-    QGridLayout *layout;
+    Ui::TimeMenu *ui; // delete у деструкторі
+    QGridLayout *layout; // delete у деструкторі
 };
 
 #endif // TIME_MENU_H

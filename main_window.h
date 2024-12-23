@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QString _username, QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -32,11 +32,8 @@ private slots:
 
     void on_add_from_file_triggered();
 
-
-
 private:
-    Ui::MainWindow *ui;
-    QString username;
+    Ui::MainWindow *ui; // delete у деструкторі
 
     Requests requests;
     void showAllUsers(bool reverse);

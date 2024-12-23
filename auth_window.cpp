@@ -15,11 +15,13 @@ AuthWindow::AuthWindow(MainWindow *_main_window, UserWindow *_user_window, QWidg
 {
     ui->setupUi(this);
     this->setWindowTitle("Авторизація в системі МВС");
+    auth = new Authorization();
 }
 
 AuthWindow::~AuthWindow()
 {
     delete ui;
+    delete auth;
 }
 
 void AuthWindow::on_pushButtonLogin_clicked()
@@ -27,13 +29,13 @@ void AuthWindow::on_pushButtonLogin_clicked()
     QString username = ui->lineEditUserName->text();
     QString password = ui->lineEditPassword->text();
 
-    if (auth.login(username, password) == 2)
+    if (auth->login(username, password) == 2)
     {
-        main_window = new MainWindow(username);
+        main_window = new MainWindow();
         main_window->show();
         close();
     }
-    else if (auth.login(username, password) == 1)
+    else if (auth->login(username, password) == 1)
     {
         user_window = new UserWindow(username);
         user_window->show();

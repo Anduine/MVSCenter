@@ -18,15 +18,15 @@ public:
     ~UserWindow();
 
 private slots:
-    void on_pushButtonGetTicket_clicked();
-    void onUserAdded(const UserRequest& request);
+    void on_pushButtonAddTicket_clicked();
+    void onUserAdded(const UserRequest &request);
 
 private:
-    Ui::UserWindow *ui;
+    Ui::UserWindow *ui; // delete у деструкторі
     QString username;
 
     Requests requests;
-    std::vector<UserRequest> user_tickets;
+    std::vector<UserRequest> user_tickets; // delete у деструкторі
 
     void showAllTickets(bool reverse = false);
 };

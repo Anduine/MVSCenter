@@ -18,11 +18,11 @@ TimeMenu::TimeMenu(QWidget *parent)
 TimeMenu::~TimeMenu()
 {
     delete ui;
+    delete layout;
+
 }
 
-void TimeMenu::setAvailableTimes(const QSet<QTime>& occupiedTimes, const QDate& date) {
-    current_date = date;
-
+void TimeMenu::setAvailableTimes(const QSet<QTime> &occupied_times) {
     // Удалить предыдущие кнопки
     QLayoutItem *item;
     while ((item = layout->takeAt(0)) != nullptr) {
@@ -30,15 +30,14 @@ void TimeMenu::setAvailableTimes(const QSet<QTime>& occupiedTimes, const QDate& 
         delete item;
     }
 
-    // Создаём кнопки для временных интервалов
-    QTime startTime(8, 0); // Начало рабочего дня
-    QTime endTime(18, 0);  // Конец рабочего дня
+    QTime start_time(8, 0); // Начало рабочего дня
+    QTime end_time(18, 0);  // Конец рабочего дня
     int row = 0;
 
-    while (startTime < endTime) {
-        QPushButton *timeButton = new QPushButton(startTime.toString("hh:mm"), this);
+    while (start_time < end_time) {
+        QPushButton *timeButton = new QPushButton(start_time.toString("hh:mm"), this);
 
-        if (occupiedTimes.contains(startTime))
+        if (occupied_times.contains(start_time))
         {
             timeButton->setEnabled(false);
             timeButton->setStyleSheet("background-color: #aeb8b8;");
@@ -46,8 +45,8 @@ void TimeMenu::setAvailableTimes(const QSet<QTime>& occupiedTimes, const QDate& 
         else
         {
             timeButton->setStyleSheet("background-color: #e48926;");
-            connect(timeButton, &QPushButton::clicked, [this, startTime]() {
-                emit timeSelected(startTime);
+            connect(timeButton, &QPushButton::clicked, [this, start_time]() {
+                emit timeSelected(start_time);
                 close();
             });
         }
@@ -55,7 +54,7 @@ void TimeMenu::setAvailableTimes(const QSet<QTime>& occupiedTimes, const QDate& 
         layout->addWidget(timeButton, row / 4, row % 4); // Кнопки в сетке
         row++;
 
-        startTime = startTime.addSecs(30 * 60); // Интервалы по 30 минут
+        start_time = start_time.addSecs(30 * 60); // Интервалы по 30 минут
     }
 }
 

@@ -1,10 +1,6 @@
 #ifndef AUTHORIZATION_H
 #define AUTHORIZATION_H
 
-#include "requests.h"
-
-#include <QDate>
-#include <QFile>
 #include <QString>
 
 #include <vector>
@@ -19,12 +15,11 @@ struct UserData
 class Authorization
 {
 private:
-    std::vector<UserData> userDatabase;
-    Requests *requests;
+    std::vector<UserData> user_database;
 public:
     Authorization();
-    int login(QString username, QString password);
-    std::vector<UserRequest> logout();
+
+    int login(QString &username, QString &password);
 
     bool loadFromFile(QString filepath);
 };
