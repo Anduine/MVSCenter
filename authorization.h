@@ -5,16 +5,16 @@
 
 #include <vector>
 
-struct UserData
-{
-    QString username;
-    QString password;
-    bool admin;
-};
-
 class Authorization
 {
 private:
+    struct UserData
+    {
+        QString username;
+        QString password;
+        bool admin;
+    };
+
     std::vector<UserData> user_database;
 public:
     Authorization();

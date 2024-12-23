@@ -47,4 +47,3 @@ void AuthWindow::on_pushButtonLogin_clicked()
         ui->lineEditPassword->clear();
     }
 }
-

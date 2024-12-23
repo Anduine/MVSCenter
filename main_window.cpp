@@ -204,7 +204,3 @@ void MainWindow::on_add_from_file_triggered()
         QMessageBox::warning(this, "Помилка", "Не вдалося завантажити дані з файлу.");
     }
 }
-
-
-
-

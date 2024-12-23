@@ -183,5 +183,3 @@ bool Requests::compare(const UserRequest &a, const UserRequest &b, int index)
         return false;
     }
 }
-
-
